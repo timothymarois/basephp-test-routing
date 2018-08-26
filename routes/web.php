@@ -10,15 +10,17 @@
 */
 
 
-route('/','Welcome::index')->name('home');
-route('/routes','Welcome::routes');
-
-route('/view',function(){
-    return 'Just a single view';
-});
-
-
 route()->web(function(){
+
+    route('/','Welcome::index')->name('home');
+    route('/routes','Welcome::routes');
+
+    route('/view',function(){
+        return 'Just a single view';
+    });
+
+
+
     route('/web',function(){
         return 'ONLY WORKS IN THE BROWSER (WEB HTTP)';
     });
@@ -28,69 +30,70 @@ route()->web(function(){
             return 'ONLY WORKS IN THE CONSOLE';
         });
     });
-});
 
 
-
-route()->middleware(['session','output:json'],function(){
-
-    route('/session','Welcome::index')->name('mysession');
-
-    // double check middleware only adds once
-    route()->middleware(['session','output:json','session'],function(){
-        route('/doubleware','Welcome::index');
-    });
-
-});
-
-
-route()->prefix('/one',function(){
-
-    route('/two','Welcome::index');
-
-    // double check middleware only adds once
-    route()->prefix('/two',function(){
-
-        route()->middleware(['session','output:json',],function(){
-            route('/three','Welcome::index');
-        });
-    });
-
-});
-
-
-
-
-// REDIRECT TEST
-// Named Routes
-route('/redirect',function(){
-    route()->to('mysession');
-});
-
-
-
-// TEST 1
-// domain allowed : http://basephp-routing/
-route()->domain('basephp-routing',function(){
-    route('/domainallowed1','Welcome::index');
-
-    // run middleware on a route within allowed domain
     route()->middleware(['session','output:json'],function(){
-        route('/domainallowedmiddleware','Welcome::index');
+
+        route('/session','Welcome::index')->name('mysession');
+
+        // double check middleware only adds once
+        route()->middleware(['session','output:json','session'],function(){
+            route('/doubleware','Welcome::index');
+        });
+
     });
 
-});
 
-// TEST 2
-// domain allowed : http://basephp-routing/
-route()->domain('http://basephp-routing/',function(){
-    route('/domainallowed2','Welcome::index');
-});
+    route()->prefix('/one',function(){
 
-// TEST 3
-// domain not allowed : http://doesnotexist/
-route()->domain('doesnotexist',function(){
-    route('/domainallowed3','Welcome::index');
+        route('/two','Welcome::index');
+
+        // double check middleware only adds once
+        route()->prefix('/two',function(){
+
+            route()->middleware(['session','output:json',],function(){
+                route('/three','Welcome::index');
+            });
+        });
+
+    });
+
+
+
+
+    // REDIRECT TEST
+    // Named Routes
+    route('/redirect',function(){
+        route()->to('mysession');
+    });
+
+
+
+    // TEST 1
+    // domain allowed : http://basephp-routing/
+    route()->domain('basephp-routing',function(){
+        route('/domainallowed1','Welcome::index');
+
+        // run middleware on a route within allowed domain
+        route()->middleware(['session','output:json'],function(){
+            route('/domainallowedmiddleware','Welcome::index');
+        });
+
+    });
+
+    // TEST 2
+    // domain allowed : http://basephp-routing/
+    route()->domain('http://basephp-routing/',function(){
+        route('/domainallowed2','Welcome::index');
+    });
+
+    // TEST 3
+    // domain not allowed : http://doesnotexist/
+    route()->domain('doesnotexist',function(){
+        route('/domainallowed3','Welcome::index');
+    });
+
+
 });
 
 

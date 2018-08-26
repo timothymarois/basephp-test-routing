@@ -1,0 +1,20 @@
+{
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/Development/TimothyMarois/Basephp/Framework/"
+        }
+    ],
+
+    "require": {
+        "basephp/framework": "dev-master"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+
+    "optimize-autoloader": true
+}

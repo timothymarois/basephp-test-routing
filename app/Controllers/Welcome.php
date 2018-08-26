@@ -15,8 +15,16 @@ class Welcome extends Controller
 		return view('welcome',[
 			'providers' => $providers,
 			'middleware' => $middleware,
-			'uri' => app()->request->url->getPath()
+			'uri' => app()->request->url->getPath(),
+			'route' => app()->request->route
 		]);
+	}
+
+
+
+	public function routes()
+	{
+		print_r(app()->router->routes()->all());
 	}
 
 }

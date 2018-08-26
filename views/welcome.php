@@ -34,7 +34,7 @@
 
             <tr>
                 <td colspan="2">
-                    <code>URI <b><?=$uri?></b></code>
+                    <code>URI <b><?=$uri?></b></code> => <code>[name:<?=$route->getName()?>]</code>
                 </td>
             </tr>
 
@@ -97,7 +97,7 @@
                     ?>
                     <tr>
                         <td>
-        					<?=$name?> (<?=$path['p']?>)
+        					<?=$path['t']?> (<?=$path['p']?>)
         				</td>
         				<td>
         					<?=$path['n']?>
@@ -122,7 +122,7 @@
         </table>
     </div>
 
-    <p><a href="./" class="install">Reload &rarr;</a></p>
+    <?=view('button');?>
 
 </body>
 </html>
